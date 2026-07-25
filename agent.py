@@ -11,8 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-@function_tool
-def calculate_damage(
+def calculate_damage_value(
     base_damage: float,
     attack_bonus_percent: float,
     multiplier: float = 1.0,
@@ -21,6 +20,16 @@ def calculate_damage(
     if base_damage < 0 or multiplier < 0:
         raise ValueError("Damage values cannot be negative")
     return base_damage * (1 + attack_bonus_percent / 100) * multiplier
+
+
+@function_tool
+def calculate_damage(
+    base_damage: float,
+    attack_bonus_percent: float,
+    multiplier: float = 1.0,
+) -> float:
+    """Calculate estimated damage from base damage, attack bonus, and multiplier."""
+    return calculate_damage_value(base_damage, attack_bonus_percent, multiplier)
 
 
 def build_agent() -> Agent:
